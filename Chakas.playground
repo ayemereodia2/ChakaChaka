@@ -1,0 +1,35 @@
+import UIKit
+
+public func solution(for n : Int) -> Int {
+ let availableRange = [1,2,147,483,647]
+    if availableRange.contains(n){
+    var n = n // Make a mutable copy
+    let firstPosition = ffsl(n)
+    if firstPosition == 0 {
+        return 0
+    }
+    n = n >> firstPosition
+    
+    var longestGap = 0
+    while n > 0 {
+        let position = Int(ffsl(n))
+        if position - 1 > longestGap {
+            longestGap = position - 1
+        }
+        n = n >> position
+    }
+    
+    return longestGap
+    }else{
+        print("Out of valid test range")
+        return 0
+    }
+}
+
+
+// TEST
+// N MUST BE WITHIN RANGE [1..2,147,483,647].
+
+var longest = solution(for: 147)
+
+print(longest)
